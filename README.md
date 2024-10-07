@@ -1,7 +1,8 @@
-# Final-Project-Template
-<!-- Edit the title above with your project title -->
+# Final-Project
+Exploring the Gender Pay Gap Across Industries
 
 ## Project Overview
+Despite progress towards gender equality in the workplace, significant disparities in pay between men and women persist across various industries. Understanding the factors contributing to these disparities is essential for addressing the gender pay gap effectively. The gender pay gap impacts economic stability and personal well-being for many individuals. Addressing it can lead to a more equitable workforce and improved societal outcomes.
 
 ## Self Assessment and Reflection
 
