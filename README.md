@@ -13,11 +13,11 @@ Despite progress towards gender equality in the workplace, significant dispariti
 
 | Category          | Score    |
 | ----------------- | -------- |
-| **Setup**         | ... / 10 |
-| **Execution**     | ... / 20 |
-| **Documentation** | ... / 10 |
-| **Presentation**  | ... / 30 |
-| **Total**         | ... / 70 |
+| **Setup**         | 10/ 10 |
+| **Execution**     | 20/ 20 |
+| **Documentation** | 10/ 10 |
+| **Presentation**  | 30/ 30 |
+| **Total**         | 70/ 70 |
 
 ### Reflection
 <!-- Edit the following section with your reflection -->

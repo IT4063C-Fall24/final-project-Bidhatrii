@@ -36,7 +36,21 @@
 # ## Data Sources
 # *What 3 data sources have you identified for this project?*
 # *How are you going to relate these datasets?*
-# 📝 <!-- Answer Below -->
+# 
+# ->Glassdoor Gender Pay Gap.csv
+# This dataset provides insights into income disparities based on job titles and gender. By analyzing the base pay and bonuses for various job titles, you can identify specific roles where the gender pay gap is most significant. The demographic data (age, education, seniority) included in this dataset allows for a deeper exploration of how these factors correlate with salary differences.
+# 
+# ->inc_occ_gender.csv
+# This dataset from the Bureau of Labor Statistics offers median weekly incomes segmented by occupation and sex. It can be used to compare and validate findings from the Glassdoor dataset, especially in understanding industry-wide trends in gender pay gaps. The data on total median income and the breakdown by gender will help highlight industries with pronounced disparities.
+# 
+# ->Salary_Data.csv
+# This dataset consolidates information on age, experience, education level, and salary across various roles. It will serve as a comprehensive source to correlate individual characteristics (such as education and experience) with salary differences. By merging this data with the previous two datasets, you can create a more holistic view of the gender pay gap, examining how personal attributes impact salary in conjunction with industry-specific trends.
+# 
+# Merging by Job Title and Gender: All three datasets contain job title and gender as key attributes. You can merge them to analyze salary differences within specific roles across various industries.
+# 
+# Comparative Analysis: Use the Glassdoor dataset to explore salary structures within specific job titles and then validate these findings with the broader industry data from the BLS dataset. This comparison will highlight whether the trends observed in specific job titles reflect wider industry patterns.
+# 
+# Correlational Studies: Use the Salary_Data dataset to perform statistical analyses, such as regression or correlation, to investigate how years of experience and education levels interact with the gender pay gap identified in the other datasets. This will enable you to provide a more nuanced understanding of the factors influencing salary disparities.
 
 # ## Approach and Analysis
 # *What is your approach to answering your project question?*
@@ -47,6 +61,23 @@
 
 
 # Start your code here
+import pandas as pd
+
+# Define the file paths
+file_paths = {
+    "Glassdoor": "datasets/Glassdoor Gender Pay Gap.csv",
+    "Income Occupation Gender": "datasets/inc_occ_gender.csv",
+    "Salary Data": "datasets/Salary_Data.csv"
+}
+
+datasets = {}
+for name, path in file_paths.items():
+    datasets[name] = pd.read_csv(path)
+
+# Display the first few rows of each dataset
+for name, data in datasets.items():
+    print(f"{name} Overview:")
+    print(data.head(), "\n")
 
 
 # ## Resources and References
