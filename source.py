@@ -171,6 +171,7 @@ df
 
 
 # ## Checking the Outliers in the Dataset
+# To explore the presence of outliers in the dataset, we first used a boxplot visualization. Boxplots are useful for identifying any extreme values or outliers that deviate significantly from the rest of the data. 
 
 # In[69]:
 
@@ -179,6 +180,12 @@ fig = plt.figure(figsize =(12,8))
 df.boxplot()
 fig.show()
 
+
+# Upon reviewing the boxplot, we observed that the data appears relatively stable with only a few outliers. The distribution of most of the variables seems normal, indicating no significant skew. However, we noticed that there are some outliers present in two columns: BasePay and Total salary. These outliers are likely due to higher salary values for certain individuals, which is common in large organizations or specialized roles.
+# 
+# It is important to note that these outliers are not necessarily erroneous or problematic. In fact, it makes sense that individuals with higher base pay will have correspondingly higher total salaries (which include bonuses or other compensation). Therefore, these outliers reflect higher-paying positions and do not suggest data issues.
+# 
+# To further investigate these outliers, we can calculate the specific values that qualify as outliers for the BasePay and Total columns using statistical methods like the IQR (Interquartile Range) or by directly examining the top and bottom salary figures.
 
 # In[70]:
 
@@ -223,11 +230,21 @@ df.drop(outliers.index, inplace = True)
 df.shape
 
 
+# Since these outliers are significantly higher than most of the data, we decided to remove them from the dataset to prevent them from skewing the analysis. In this case, the high total salaries for the two managerial roles seemed significantly higher than the rest of the dataset. Given that outliers can sometimes represent rare but valid data points (e.g., high-level executives or rare situations), we decided to remove them to maintain a more representative distribution of the data for analysis.
+# 
+# By removing these outliers, the dataset now reflects a more accurate picture of the general salary trends, which will help in further exploration of gender pay gaps and other salary-related patterns.
+
 # ## Data Analysis and Visualization
 
 # The primary goal of the Analysis Phase is to gain a deep understanding of the existing gender pay gap within the organization, identify contributing factors, and prepare the data for predictive modeling.
 
-# In[76]:
+# In[ ]:
+
+
+
+
+
+# In[ ]:
 
 
 # Group by 'Gender' and calculate descriptive statistics for the specified columns
@@ -249,6 +266,8 @@ sns.heatmap(numeric_df.corr(), annot=True, cmap="BuPu")
 # Show the plot
 plt.show()
 
+
+# The heatmap provides a clear view of how the variables in the dataset relate to each other. Understanding these relationships is critical for analyzing the factors contributing to the gender pay gap and other compensation disparities. For example, knowing that BasePay and Total Salary are closely linked allows us to focus on base salary differences when comparing gender pay gaps, while the correlation between Bonus and PerfEval can help explain bonus disparities across different groups.
 
 # In[117]:
 
@@ -302,6 +321,8 @@ pivot_data_sorted = pivot_data.sort_values(by='PayGap', ascending=False)
 pivot_data_sorted
 
 
+# The grouping, pivoting, and pay gap calculation provided a clear and structured way to explore the gender pay gap across job titles and educational backgrounds. The visualization process revealed not only the overall pay differences between genders but also how factors like job titles and education levels play a role in shaping these disparities. By sorting the data, we can focus on areas where the pay gap is most pronounced, helping stakeholders target their efforts toward achieving a more equitable workforce.
+
 # In[103]:
 
 
@@ -313,6 +334,8 @@ plt.ylabel('Total Salary ($)')
 plt.xticks(rotation=45)
 plt.show()
 
+
+# The boxplot provided valuable insights into the distribution of Total Salary across education levels and between genders. It clearly shows the salary disparity between men and women, highlighting areas where the pay gap might be more pronounced. This visualization is essential for understanding how education influences salary outcomes for different genders, and it can guide efforts to reduce the gender pay gap by focusing on educational attainment or exploring disparities within specific fields.
 
 # In[109]:
 
@@ -330,6 +353,8 @@ plt.legend(title='Gender')
 plt.show()
 
 
+# The bar plot allowed us to visually explore the relationship between Performance Evaluation and Total Salary, broken down by gender. It provided valuable insights into how performance impacts salary outcomes and highlighted the persistent gender pay gap, even when considering performance evaluations. This visualization is important for understanding how gender-based salary disparities may be exacerbated or mitigated by performance ratings and could inform targeted initiatives to close the gender pay gap, particularly in high-performance categories.
+
 # In[110]:
 
 
@@ -345,6 +370,8 @@ plt.ylabel('Average Total Salary')
 plt.legend(title='Gender')
 plt.show()
 
+
+# This bar plot effectively illustrates the relationship between seniority and salary, with a clear breakdown by gender. The visualization reinforces the presence of a persistent gender pay gap across all seniority levels, although the gap becomes more pronounced in higher seniority positions. Understanding this relationship is crucial for addressing and mitigating gender-based salary disparities, particularly in senior roles. This information could be used to inform organizational strategies aimed at ensuring more equitable salary practices across all levels of seniority.
 
 # In[111]:
 
@@ -363,17 +390,59 @@ plt.legend(title='Gender')
 plt.show()
 
 
+# This bar plot offers valuable insights into the gender pay gap across various departments, shedding light on areas where pay disparities are most prevalent. It is clear that while some departments show relatively small gender differences in salary, others, particularly those with higher pay scales, exhibit significant gaps. This information can be used by organizations to target interventions aimed at reducing the gender pay gap, especially in departments where the gap is most pronounced.
+
+# There is a statistically significant difference in total pay between genders in the dataset. In other words, the data provides strong evidence that gender has an impact on total pay, and it is not likely due to random chance.
+# 
+# However, remember that statistical significance does not imply causation or provide insights into the reasons behind the gender pay gap. Further analysis may be needed to understand the factors contributing to this difference.
+
+# ## Machine Learning Plan
+# 
+# This project explores the gender pay gap and aims to use machine learning for predicting salaries based on various features, such as gender, education, years of experience, and department. Below is the plan for integrating machine learning into this project.
+# 
+# 1. Types of Machine Learning to be Used
+# 
+#     A. Regression (Supervised Learning)
+# 
+#     -Linear Regression: To understand the relationship between salary and features like education and years of experience.
+# 
+#     -Decision Tree Regression: To capture non-linear relationships and interactions between features.
+# 
+#     -Random Forest Regression: For robust predictions by considering a wider set of features and interactions.
+# 
+#     OR
+# 
+#     B. Classification (Supervised Learning)
+# 
+#     -Logistic Regression: To classify employees based on their pay gap compared to expected salary.
+# 
+#     -Random Forest Classification: For a more robust classification based on multiple features.
+# 
+# 2. Issues in Making Machine Learning Happen
+# A. Data Quality Issues
+# Missing Data: We need to handle missing values, especially in columns like Age and Gender.
+# Data Imbalance: There could be an imbalance in the gender distribution across high-paying job titles, which may affect model performance.
+# B. Data Preprocessing
+# Feature Engineering: Converting categorical variables (e.g., Education Level and Job Title) into numerical values for machine learning models.
+# Normalization: Scaling features like years of experience and salary to ensure the models perform well.
+# C. Overfitting
+# Complex models may overfit the data. We will use cross-validation in decision trees to avoid this.
+# 
+# 3. Potential Challenges
+# -Non-linear Relationships
+# Salary is influenced by complex, non-linear interactions between features. Models like linear regression may not capture these without careful feature engineering or more advanced techniques.
+# 
+# 4. Plan for Next Steps
+# Data Preprocessing: Address missing values, encode categorical features, and scale the data.
+# Model Training: Train ML models, evaluate them using metrics like MAE for regression or accuracy for classification.
+
 # ## Resources and References
 # *What resources and references have you used for this project?*
 # 📝 <!-- Answer Below -->
 
-# In[ ]:
+# Course videos, notes, geeksforgeeks website
 
-
-
-
-
-# In[82]:
+# In[121]:
 
 
 # ⚠️ Make sure you run this cell at the end of your notebook before every submission!
